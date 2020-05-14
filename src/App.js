@@ -5,7 +5,7 @@ import virusdata from './VirusData.json';
 import CoronaChart from './CoronaChart.js';
 
 // https://api.thevirustracker.com/free-api?CountryTimeline=IN
-const API_ENDPOINT_IN = '/free-api?CountryTimeline=IN';
+const API_ENDPOINT_IN = 'https://api.thevirustracker.com/free-api?CountryTimeline=IN';
 
 class App extends React.Component {
 constructor (props){
@@ -25,7 +25,9 @@ componentDidMount() {
 
 
   //Call API to get data - works async
-fetch(API_ENDPOINT_IN)
+fetch(API_ENDPOINT_IN, {
+  mode: 'no-cors'
+})
 .then (response => response.json())
 .then(
   data => { 
@@ -35,7 +37,8 @@ fetch(API_ENDPOINT_IN)
     isLoaded: true,
     countrydata : data.timelineitems[0]
     });
-  }, 
+  }
+  , 
   (error) => {
     this.setState ({
       isLoaded : false ,
@@ -44,25 +47,17 @@ fetch(API_ENDPOINT_IN)
   } 
 )
 
-/*
-this.setState ({
-  countrydata : virusdata.timelineitems[0],
-  isLoaded : true
-});
-*/
 }
 
 
 render() {
-//var total_count = [];
-//total_count = Object.values(this.state.countrydata).map(countryCount  => countryCount["total_cases"]);
-//total_count = Object.values(this.state.countrydata);
 
 return (
   <div className="App">
       <body>
       <h1>Welcome in App - Count - {(Object.keys(this.state.countrydata)).length} </h1>
       <h1>API called - {this.state.isLoaded.toString()} </h1>
+      <h1>Error - {Object.toString(this.state.error)} </h1>
         
         <CoronaChart id="coronaChart" width="20" height="15" chartdata={this.state.countrydata} />
       </body>
