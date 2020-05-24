@@ -3,6 +3,7 @@ import './App.css';
 import virusdata from './VirusData.json';
 
 import CoronaChart from './CoronaChart.js';
+import DisplayNotes from './DisplayNotes';
 
 // https://api.thevirustracker.com/free-api?CountryTimeline=IN
 const API_ENDPOINT_IN = 'https://api.thevirustracker.com/free-api?CountryTimeline=IN';
@@ -55,10 +56,8 @@ render() {
 return (
   <div className="App">
       <body>
-      <h1>Welcome in App - Count - {(Object.keys(this.state.countrydata)).length} </h1>
-      <h1>API called - {this.state.isLoaded.toString()} </h1>
-      <h1>Error - {Object.toString(this.state.error)} </h1>
-        
+        <DisplayNotes content={this.state} />
+     
         <CoronaChart id="coronaChart" width="20" height="15" chartdata={this.state.countrydata} />
       </body>
     </div>
