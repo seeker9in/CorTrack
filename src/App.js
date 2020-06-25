@@ -4,6 +4,12 @@ import virusdata from './VirusData.json';
 
 import CoronaChart from './CoronaChart.js';
 import DisplayNotes from './DisplayNotes';
+import CountryDetail from './components/CountryDetail';
+
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
+import reducers from './reducers';
 
 // https://api.thevirustracker.com/free-api?CountryTimeline=IN
 const API_ENDPOINT_IN = 'https://api.thevirustracker.com/free-api?CountryTimeline=IN';
@@ -17,7 +23,7 @@ this.state = {
   isLoaded: false,
 //  countrydata : []
   countrydata : virusdata.timelineitems[0]
-};
+}; 
 
 }
 
@@ -54,14 +60,15 @@ fetch(API_ENDPOINT_IN, {
 render() {
 
 return (
+<Provider store = {createStore(reducers)}>
   <div className="App">
       <body>
         <DisplayNotes content={this.state} />
-     
+        <CountryDetail />     
         <CoronaChart id="coronaChart" width="20" height="15" chartdata={this.state.countrydata} />
       </body>
     </div>
-
+  </Provider>
   );
 }
 

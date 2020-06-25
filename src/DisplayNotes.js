@@ -1,15 +1,48 @@
 import React from "react";
+import { connect } from 'react-redux';
+import { selectCountry } from './actions';
 
-function DisplayNotes(props){
+class DisplayNotes extends React.Component {
+constructor(props) {
+    super(props);
+}
 
+    // add a helper function to return array of countries to display
+
+    renderList(){
+        return this.props.countries.map((country) => {
+            return (
+                    <div className="item" key={country.id}>
+                        <div className="right floated content">
+                            <button className="ui button primary"
+                            onClick = {() => this.props.selectCountry(country)}>
+                                Choose Country
+                            </button>
+                        </div>
+                        <div className="content">{country.name}</div>
+                    </div>
+            );
+        });
+
+    }
+
+
+    render(){
     return (
-    <div>
-        <h1>Welcome in DisplayNotes - Count - {(Object.keys(props.content.countrydata)).length} </h1>
-        <h1>API called - {props.content.isLoaded.toString()} </h1>
-        <h1>Error - {Object.toString(props.content.error)} </h1>
-    </div>
+        <div>
+            <div className="ui divided list">{this.renderList()}</div>
+
+        </div>
     );
+    }
 
 }
 
-export default DisplayNotes;
+function mapStateToProps (state){
+    console.log(state);
+    return {
+        countries: state.countries
+    };
+}
+
+export default connect(mapStateToProps, { selectCountry: selectCountry })(DisplayNotes);
