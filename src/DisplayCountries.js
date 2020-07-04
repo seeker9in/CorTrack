@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import { selectCountry } from './actions';
 
-class DisplayNotes extends React.Component {
+class DisplayCountries extends React.Component {
 constructor(props) {
     super(props);
 }
@@ -45,4 +45,4 @@ function mapStateToProps (state){
     };
 }
 
-export default connect(mapStateToProps, { selectCountry: selectCountry })(DisplayNotes);
+export default connect(mapStateToProps, { selectCountry: selectCountry })(DisplayCountries);

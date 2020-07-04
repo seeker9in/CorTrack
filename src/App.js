@@ -3,7 +3,7 @@ import './App.css';
 import virusdata from './VirusData.json';
 
 import CoronaChart from './CoronaChart.js';
-import DisplayNotes from './DisplayNotes';
+import DisplayCountries from './DisplayCountries';
 import CountryDetail from './components/CountryDetail';
 
 import { Provider } from 'react-redux';
@@ -63,7 +63,7 @@ return (
 <Provider store = {createStore(reducers)}>
   <div className="App">
       <body>
-        <DisplayNotes content={this.state} />
+        <DisplayCountries  />
         <CountryDetail />     
         <CoronaChart id="coronaChart" width="20" height="15" chartdata={this.state.countrydata} />
       </body>
